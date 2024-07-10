@@ -1,0 +1,21 @@
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "k3s-cilium-lb-pool"
+  namespace: kube-system
+spec:
+  blocks:
+    # Pick your pool https://docs.cilium.io/en/stable/network/lb-ipam/#pools
+  - start: "192.168.2.90"
+    stop: "192.168.2.94"
+
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: default-l2-announcement-policy
+  namespace: kube-system
+spec:
+  externalIPs: true
+  loadBalancerIPs: true

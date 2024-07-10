@@ -1,0 +1,47 @@
+image:
+  rootless: true
+  registry: docker.io
+  repository: gitea/gitea
+  tag: 1.22.1
+  pullPolicy: IfNotPresent
+
+gitea:
+  admin:
+    existingSecret: gitea-admin-secret
+  config:
+    database:
+      DB_TYPE: postgres
+      HOST: <svc>.<namespace>.svc.cluster.local:5432
+      NAME: gitea
+      USER: gitea
+      PASSWD: <password>
+      SCHEMA: gitea
+    server:
+      DOMAIN: <hostname>
+      SSH_LISTEN_PORT: 2222
+
+  metrics:
+    enabled: true
+
+postgresql:
+  enabled: false
+
+postgresql-ha:
+  enabled: false
+
+redis:
+  enabled: false
+
+persistence:
+  enabled: true
+  storageClass: longhorn
+
+redis-cluster:
+  enabled: false
+
+service:
+  http:
+    port: 3000
+  ssh:
+    port: 22
+
